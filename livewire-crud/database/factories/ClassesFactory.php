@@ -16,8 +16,10 @@ class ClassesFactory extends Factory
      */
     public function definition(): array
     {
+        $classNames = ['One', 'Two', 'Three', 'Four', 'Five'];
+
         return [
-            'name' => $this->faker->randomElement(['One','Two','Three','Four','Five']),
+            'name' => $this->faker->randomElement( $classNames ),
         ];
     }
 }

@@ -33,45 +33,47 @@
                             <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6" />
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 bg-white">
-                        @foreach ($students as $student)
-                        <tr>
-                            <td
-                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                1
-                            </td>
-                            <td
-                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                {{ $student->name }}
-                            </td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {{ $student->email }}
-                            </td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Image
-                                <img src="#" alt="" width="200px" />
-                            </td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {{ $student->class->name }}
-                            </td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                {{ $student->section->name }}
-                            </td>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                    @foreach ($students as $student)
+                    <tr>
+                        <td
+                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                            1
+                        </td>
+                        <td
+                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                            {{ $student->name }}
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {{ $student->email }}
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            <img src="{{ $student?->getMedia()?->last()?->getUrl() }}" alt="" width="100px" />
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {{ $student->class->name }}
+                        </td>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                            {{ $student->section->name }}
+                        </td>
 
-                            <td
-                                class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                                    Edit
-                                </a>
-                                <button wire:confirm="Are you sure?"
-                                    class="ml-2 text-indigo-600 hover:text-indigo-900">
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                        @endforeach
-
-                    </tbody>
+                        <td
+                            class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                                Edit
+                            </a>
+                            <button wire:confirm="Are you sure?"
+                                class="ml-2 text-indigo-600 hover:text-indigo-900">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
                 </table>
+                <div class="mx-6 my-4">
+                    {{ $students->links() }}
+                </div>
             </div>
         </div>
     </div>
