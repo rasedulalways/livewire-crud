@@ -13,4 +13,8 @@ class StudentController extends Controller
     public function create(){
         return view('students.create');
     }
+
+    public function edit(){
+        return view('students.edit');
+    }
 }

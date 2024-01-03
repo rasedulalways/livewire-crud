@@ -2,28 +2,44 @@
 
 namespace App\Livewire\Student;
 
+use App\Livewire\Forms\UpdateStudent;
 use App\Models\Classes;
 use App\Models\Section;
 use App\Models\Student;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
-use App\Livewire\Forms\StoreStudent;
+use Livewire\Attributes\Layout;
 
-class Create extends Component
+class Edit extends Component
 {
     use WithFileUploads;
-    public StoreStudent $form;
+
+    public Student $student;
+
+    public UpdateStudent $form;
 
     #[Validate('required')]
     public $class_id = '';
 
     public $sections = [];
 
+    public function mount()
+    {
+        $this->form->setStudent($this->student);
+
+        $this->fill(
+            $this->student->only('class_id'),
+        );
+
+        $this->sections = Section::where('class_id', $this->student->class_id)->get();
+    }
+
+    #[Layout('layouts.app')]
     public function render()
     {
         $classes = Classes::all();
-        return view('livewire.student.create', [
+        return view('livewire.student.edit', [
             'classes' => $classes,
         ]);
     }
@@ -33,13 +49,12 @@ class Create extends Component
         $this->validateOnly($field);
     }
 
-    public function save(){
+    public function update(){
         $this->validate();
 
-        $this->form->store( class_id: $this->class_id );
+        $this->form->update( $this->class_id );
 
-        return redirect( route( 'students.index' ) )
-            ->with( 'status', 'Student successfully created.' );
+        return redirect(route('students.index'))->with('status','Student successfully created');
     }
 
     public function updatedClassId($value){
