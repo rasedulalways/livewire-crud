@@ -1,9 +1,8 @@
 <?php
 
-use App\Livewire\Student\Edit;
+use App\Livewire\Tasks\TasksIndex;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('students', StudentController::class);
-    Route::get( 'students/{student}/edit', Edit::class )->name( 'students.edit' );
+
+    Route::get('/tasks', TasksIndex::class)->name('task.index');
 });
 
 require __DIR__.'/auth.php';
