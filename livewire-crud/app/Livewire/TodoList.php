@@ -2,10 +2,11 @@
 
 namespace App\Livewire;
 
+use Exception;
 use App\Models\Todo;
 use Livewire\Component;
-use Livewire\Attributes\Rule;
 use Livewire\WithPagination;
+use Livewire\Attributes\Rule;
 
 class TodoList extends Component
 {
@@ -31,11 +32,17 @@ class TodoList extends Component
         $this->reset('name');
 
         session()->flash('success', 'Todo save successfully');
+
+        $this->resetPage();
     }
 
-    public function delete($todoID){
-        Todo::find($todoID)->delete();
-    }
+    // public function delete($todoID){
+    //     try{
+    //         Todo::findOrfail($todoID)->delete();
+    //     }catch(Exception $e){
+    //         session()->flash('error', 'Failed to delete todo!');
+    //     }
+    // }
 
     // public function delete(Todo $todo){
     //     $todo->delete();
